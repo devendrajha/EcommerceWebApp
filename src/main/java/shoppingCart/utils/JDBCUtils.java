@@ -3,6 +3,8 @@ package shoppingCart.utils;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -50,11 +52,35 @@ public class JDBCUtils {
 	public static LocalDate getUtilDate(Date sqlDate) {
 		return sqlDate.toLocalDate();
 	}
-public static void main(String[] args) {
-	System.out.println(getConnection());
 
-	
-}
+	public static void cleanUp(Connection connection, ResultSet rs, PreparedStatement ps) {
 
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.getMessage();
+			}
+		}
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.getMessage();
+			}
+		}
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.getMessage();
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		System.out.println(getConnection());
+
+	}
 
 }

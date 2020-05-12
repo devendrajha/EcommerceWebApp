@@ -12,17 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.protocol.HTTP;
-import org.codehaus.jettison.json.JSONObject;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.google.gson.Gson;
 
 import shoppingCart.dao.LoginDao;
 import shoppingCart.model.LoginBean;
+import shoppingCart.model.User;
 
 @WebServlet("/login")
 
@@ -64,6 +58,7 @@ public class LoginController extends HttpServlet {
 		// TODO Auto-generated method stub
 		StringBuffer jb = new StringBuffer();
 		String line = null;
+		Gson gson = new Gson();
 		try {
 			BufferedReader reader = request.getReader();
 			while ((line = reader.readLine()) != null)
@@ -72,8 +67,17 @@ public class LoginController extends HttpServlet {
 			/* report an error */ 
 		}
 		
-		
-		System.out.println(jb);
+		User u=gson.fromJson(jb.toString(), User.class);
+		String res=null;
+		try {
+			res=loginDao.createUser(u);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		resp.setContentType("text/html");
+		PrintWriter out = resp.getWriter();
+		out.println(res);
 
 	}
 	/*

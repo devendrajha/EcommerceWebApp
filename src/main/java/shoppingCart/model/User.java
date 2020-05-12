@@ -8,23 +8,23 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String firstName;
-	private String lastName;
+	private String firstname;
+	private String lastname;
 	private String email;
 	private String mobilenumber;
 	private String username;
 	private String password;
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstname = firstName;
 	}
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastname = lastName;
 	}
 	
 	public String getemail() {
@@ -55,4 +55,10 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
 }
