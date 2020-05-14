@@ -33,9 +33,14 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		
+
 		// response.sendRedirect("login/login.jsp");
 		String name = request.getParameter("username");
 		String pwd = request.getParameter("password");
+		
 		LoginBean loginBean = new LoginBean();
 		loginBean.setUsername(name);
 		loginBean.setPassword(pwd);
@@ -47,9 +52,9 @@ public class LoginController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(str);
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		if (request.getParameter("username")==null && request.getParameter("password") ==null) {
+			out.println("Please Enter UserName and Password as a query String ");
+		}else
 		out.println(str);
 	}
 
